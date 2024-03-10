@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ImageItemView: View {
     let imageURL: String?
-    let height: CGFloat
     
     var body: some View {
         AsyncImage(url: URL(string: imageURL ?? "")) { phase in
@@ -17,13 +16,14 @@ struct ImageItemView: View {
             case .success(let image):
                 image
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: height)
+                       .scaledToFit()
+                       .containerRelativeFrame(.horizontal) { size, axis in
+                           size * 0.8
+                       }
             case .failure:
                 Image(systemName: "photo")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(height: height)
             case .empty:
                 ProgressView()
             @unknown default:
@@ -34,5 +34,5 @@ struct ImageItemView: View {
 }
 
 #Preview {
-    ImageItemView(imageURL: "", height: 150)
+    ImageItemView(imageURL: "https://images-assets.nasa.gov/image/PIA14208/PIA14208~thumb.jpg")
 }

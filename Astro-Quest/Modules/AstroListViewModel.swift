@@ -10,12 +10,15 @@ import SwiftUI
 
 extension AstroListView {
     @Observable class ViewModel{
-        var visibility: NavigationSplitViewVisibility = .all
+        var visibility: NavigationSplitViewVisibility = .automatic
         var items: [AstroItem]? = []
+        var showingAlert = false
+        var searchText: String = "moon"
+
         
         func getAstroData() async {
             // Define the URL for the API
-            let apiUrl = URL(string: "https://images-api.nasa.gov/search?q=moon")!
+            let apiUrl = URL(string: "https://images-api.nasa.gov/search?q=\(searchText)")!
 
             // Create a URLRequest
             var request = URLRequest(url: apiUrl)
@@ -42,6 +45,8 @@ extension AstroListView {
                     // Now you can access the response object
                     print(response)
                     
+                    
+                    self.items = []
                     response.collection?.items?.forEach({ item in
                         self.items?.append(AstroItem(item: item))
                     })

@@ -17,19 +17,64 @@ struct AstroListView: View {
             }
             .navigationTitle("Categories")
             .navigationDestination(for: AstroItem.self) { item in
-                HStack {
-                    ImageItemView(imageURL: item.image, height: 150)
-                    Text(item.description)
-                }
+                AstroDetailView(item: item)
             }
+            .toolbar(content: {
+                Button(action: { viewModel.showingAlert = true }) {
+                    Image(systemName: "magnifyingglass")
+                }
+            })
         } detail: {
-            Text("Select an item from the list")
+            Text("""
+                Welcome to Astro Quest
+                We Selected some Moon Data for you
+                However you can always tap search on the sidebar and look for anything related to Nasa files
+                """)
+                .font(.title)
+                .bold()
+                .padding()
+        }
+        .alert("Search", isPresented: $viewModel.showingAlert) {
+            TextField("Enter An Astro Name", text: $viewModel.searchText)
+            Button("OK", action: submit)
+        } message: {
+            Text("Xcode will print whatever you type.")
         }
         .task {
             await self.viewModel.getAstroData()
         }
     }
+    
+    func submit() {
+        Task(priority: .high) {
+            await self.viewModel.getAstroData()
+        }
+    }
 }
+
+struct AstroDetailView: View {
+    let item: AstroItem
+    
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                ImageItemView(imageURL: item.images.first)
+                    .cornerRadius(16.0)
+                Spacer()
+    
+                Text(item.description)
+                    .font(.title2)
+                    .bold()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+            }
+            .padding(.horizontal)
+        }
+        .navigationTitle(item.title)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
 
 #Preview {
     AstroListView()
