@@ -10,11 +10,30 @@ import SwiftUI
 
 extension AstroListView {
     @Observable class ViewModel{
-        var visibility: NavigationSplitViewVisibility = .automatic
+        var visibility: NavigationSplitViewVisibility = .all
         var items: [AstroItem]? = []
         var showingAlert = false
         var searchText: String = "moon"
 
+        func readLocalJSONFile() async {
+                   guard items?.isEmpty ?? true else { return }
+                   
+                   do {
+                       guard let filePath = Bundle.main.path(forResource: "nasa_moon_results", ofType: "json") else {
+                           print("Can't find file")
+                           return
+                       }
+                       
+                       let fileUrl = URL(fileURLWithPath: filePath)
+                       let data = try Data(contentsOf: fileUrl)
+                       let response = try JSONDecoder().decode(MediaItemsResponse.self, from: data)
+                       response.collection?.items?.forEach({ item in
+                           self.items?.append(AstroItem(item: item))
+                       })
+                   } catch {
+                       self.items = []
+                   }
+               }
         
         func getAstroData() async {
             // Define the URL for the API
@@ -43,10 +62,6 @@ extension AstroListView {
                     let decoder = JSONDecoder()
                     let response = try decoder.decode(MediaItemsResponse.self, from: data)
                     // Now you can access the response object
-                    print(response)
-                    
-                    
-                    self.items = []
                     response.collection?.items?.forEach({ item in
                         self.items?.append(AstroItem(item: item))
                     })

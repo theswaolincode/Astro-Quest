@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4BD3F5D2BA22E38004EF900 /* nasa_moon_results.json in Resources */ = {isa = PBXBuildFile; fileRef = C4BD3F5C2BA22E38004EF900 /* nasa_moon_results.json */; };
 		C4D587D42B9DBDF200BB9F15 /* Astro_QuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D587D32B9DBDF200BB9F15 /* Astro_QuestApp.swift */; };
 		C4D587D82B9DBDF300BB9F15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4D587D72B9DBDF300BB9F15 /* Assets.xcassets */; };
 		C4D587DC2B9DBDF300BB9F15 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4D587DB2B9DBDF300BB9F15 /* Preview Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C4BD3F5C2BA22E38004EF900 /* nasa_moon_results.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nasa_moon_results.json; sourceTree = "<group>"; };
 		C4D587D02B9DBDF200BB9F15 /* Astro-Quest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Astro-Quest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4D587D32B9DBDF200BB9F15 /* Astro_QuestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Astro_QuestApp.swift; sourceTree = "<group>"; };
 		C4D587D72B9DBDF300BB9F15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		C4D587DA2B9DBDF300BB9F15 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				C4BD3F5C2BA22E38004EF900 /* nasa_moon_results.json */,
 				C4D587DB2B9DBDF300BB9F15 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -155,6 +158,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4BD3F5D2BA22E38004EF900 /* nasa_moon_results.json in Resources */,
 				C4D587DC2B9DBDF300BB9F15 /* Preview Assets.xcassets in Resources */,
 				C4D587D82B9DBDF300BB9F15 /* Assets.xcassets in Resources */,
 			);

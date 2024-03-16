@@ -19,6 +19,7 @@ struct AstroListView: View {
             .navigationDestination(for: AstroItem.self) { item in
                 AstroDetailView(item: item)
             }
+            .navigationSplitViewColumnWidth(250)
             .toolbar(content: {
                 Button(action: { viewModel.showingAlert = true }) {
                     Image(systemName: "magnifyingglass")
@@ -34,6 +35,7 @@ struct AstroListView: View {
                 .bold()
                 .padding()
         }
+        .navigationSplitViewStyle(.balanced)
         .alert("Search", isPresented: $viewModel.showingAlert) {
             TextField("Enter An Astro Name", text: $viewModel.searchText)
             Button("OK", action: submit)
