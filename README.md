@@ -1,4 +1,4 @@
-# Project Name
+# Astro Quest
 
 [Project Logo or Image]
 
