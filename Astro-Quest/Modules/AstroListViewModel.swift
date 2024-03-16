@@ -12,7 +12,8 @@ extension AstroListView {
     @Observable class ViewModel{
         var visibility: NavigationSplitViewVisibility = .all
         var items: [AstroItem]? = []
-        var showingAlert = false
+        var isShowingSearchInput = false
+        var isShowingSearchNoResultsAlert = false
         var searchText: String = "moon"
 
         func readLocalJSONFile() async {
@@ -48,12 +49,14 @@ extension AstroListView {
                 // Check for errors
                 if let error = error {
                     print("Error: \(error)")
+                    self.isShowingSearchNoResultsAlert = true
                     return
                 }
                 
                 // Check if there is data
                 guard let data = data else {
                     print("No data received")
+                    self.isShowingSearchNoResultsAlert = true
                     return
                 }
                 
@@ -62,12 +65,19 @@ extension AstroListView {
                     let decoder = JSONDecoder()
                     let response = try decoder.decode(MediaItemsResponse.self, from: data)
                     // Now you can access the response object
+                    guard !(response.collection?.items?.isEmpty ?? true) else {
+                        self.isShowingSearchNoResultsAlert = true
+                        return
+                    }
+                    self.items?.removeAll()
+                    
                     response.collection?.items?.forEach({ item in
                         self.items?.append(AstroItem(item: item))
                     })
                     
                 } catch let decodingError {
                     print("Error decoding JSON: \(decodingError)")
+                    self.isShowingSearchNoResultsAlert = true
                 }
             }
 

@@ -21,7 +21,7 @@ struct AstroListView: View {
             }
             .navigationSplitViewColumnWidth(250)
             .toolbar(content: {
-                Button(action: { viewModel.showingAlert = true }) {
+                Button(action: { viewModel.isShowingSearchInput = true }) {
                     Image(systemName: "magnifyingglass")
                 }
             })
@@ -36,11 +36,16 @@ struct AstroListView: View {
                 .padding()
         }
         .navigationSplitViewStyle(.balanced)
-        .alert("Search", isPresented: $viewModel.showingAlert) {
-            TextField("Enter An Astro Name", text: $viewModel.searchText)
+        .alert("Search", isPresented: $viewModel.isShowingSearchInput) {
+            TextField("Search Field", text: $viewModel.searchText)
             Button("OK", action: submit)
         } message: {
-            Text("Xcode will print whatever you type.")
+            Text("Enter An Astro Name")
+        }
+        .alert("Try Again", isPresented: $viewModel.isShowingSearchNoResultsAlert) {
+            Button("OK", action: {})
+        } message: {
+            Text("Sorry we could not find any results")
         }
         .task {
             await self.viewModel.getAstroData()
